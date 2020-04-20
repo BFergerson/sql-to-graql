@@ -1,5 +1,5 @@
-# SQL -> Graql
-- [Slides](SQL-to-Graql.pdf)
+# Slides
+[![](training/intro_slide.jpg)](SQL-to-Graql.pdf)
 
 ## Side-by-Side Comparison
 - [Defining Schema](side-by-side/defining-schema.md)
