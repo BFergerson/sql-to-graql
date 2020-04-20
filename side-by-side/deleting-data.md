@@ -1,0 +1,32 @@
+```sql
+DELETE FROM products
+WHERE product_name = 'Pepsi';
+```
+
+```gql
+############################################# SCHEMA #############################################
+define
+product sub entity,
+    key product_name;
+
+product_name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert $p isa product, has product_name "Pepsi";
+insert $p isa product, has product_name "Coca-Cola";
+insert $p isa product, has product_name "Fanta";
+
+############################################# QUERY #############################################
+match
+$p isa product, has product_name "Pepsi";
+delete $p;
+
+match
+$p isa product_name;
+get; #"Pepsi" still exists?
+
+match
+$p isa product_name;
+$p == "Pepsi";
+delete $p; #Fully delete "Pepsi" attribute
+```

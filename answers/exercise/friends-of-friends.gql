@@ -1,0 +1,78 @@
+############################################# SCHEMA #############################################
+define
+person sub entity,
+    has name,
+    plays friend;
+
+friendship sub relation,
+    relates friend;
+
+name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert
+$brandon isa person, has name "Brandon";
+$travis isa person, has name "Travis";
+$bob isa person, has name "Bob";
+$mark isa person, has name "Mark";
+$melissa isa person, has name "Melissa";
+$louise isa person, has name "Louise";
+$alice isa person, has name "Alice";
+
+(friend: $brandon, friend: $travis) isa friendship;
+(friend: $brandon, friend: $bob) isa friendship;
+(friend: $brandon, friend: $mark) isa friendship;
+(friend: $brandon, friend: $melissa) isa friendship;
+(friend: $bob, friend: $mark) isa friendship;
+(friend: $mark, friend: $louise) isa friendship;
+(friend: $melissa, friend: $louise) isa friendship;
+(friend: $melissa, friend: $alice) isa friendship;
+
+############################################# QUERY #############################################
+#Write a query to find the friends of Brandon’s friends
+match
+$brandon isa person, has name "Brandon";
+$brandon_friends isa person;
+($brandon, $brandons_friends) isa friendship;
+
+$friends_of_brandons_friends isa person;
+($brandons_friends, $friends_of_brandons_friends) isa friendship;
+$friends_of_brandons_friends != $brandon;
+not {
+	($brandon, $friends_of_brandons_friends) isa friendship;
+};
+get $friends_of_brandons_friends;
+
+#Create a rule to infer two people may be acquaintances based on mutual friends
+define
+person plays possible_acquaintance;
+possible-acquaintanceship sub relation,
+    relates possible_acquaintance;
+
+people-who-may-know-each-other sub rule,
+when {
+    $a isa person;
+    $b isa person;
+    $c isa person;
+    $r1 (friend: $a, friend: $b) isa friendship;
+    $r2 (friend: $b, friend: $c) isa friendship;
+    $a != $c;
+    not {
+        (friend: $a, friend: $c) isa friendship;
+    };
+}, then{
+    (possible_acquaintance: $a, possible_acquaintance: $c) isa possible-acquaintanceship;
+};
+
+#E.g. Who is friends with Brandon's friends?
+match $brandon isa person, has name "Brandon";
+$r ($brandon, $x) isa possible-acquaintanceship;
+get;
+
+#E.g. Who has the most friends in common with Brandon?
+match
+$brandon isa person, has name "Brandon";
+($brandon, $brandons_friends) isa friendship;
+($brandon, $possible_acquaintances) isa possible-acquaintanceship;
+$r ($possible_acquaintances, $brandons_friends) isa friendship;
+get $r, $possible_acquaintances; group $possible_acquaintances; count;

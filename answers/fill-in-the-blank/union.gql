@@ -1,0 +1,9 @@
+match
+$al isa album, has album_name $n;
+{
+    $ar isa artist, has artist_name "Michael Jackson";
+    (released_album: $al, releasing_artist: $ar) isa album-release;
+} or {
+    $al has release_date >= 2000-01-01;
+};
+get $n;

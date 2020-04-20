@@ -1,0 +1,43 @@
+############################################# SCHEMA #############################################
+define
+account sub entity,
+    has first_name,
+    has last_name,
+    has email,
+    plays follower,
+    plays followee,
+    plays poster,
+    plays commented-account,
+    plays comment-liker;
+comment sub entity,
+    has body,
+    has archived,
+    plays comment-liked,
+    plays account-comment,
+    plays post-comment;
+post sub entity,
+    has body,
+    plays posted,
+    plays commented-post;
+
+following sub relation,
+    relates follower,
+    relates followee;
+posting sub relation,
+    relates posted,
+    relates poster;
+comment-liking sub relation,
+    relates comment-liker,
+    relates comment-liked;
+post-commenting sub relation,
+    relates post-comment,
+    relates commented-post;
+account-commenting sub relation,
+    relates account-comment,
+    relates commented-account;
+
+first_name sub attribute, datatype string;
+last_name sub attribute, datatype string;
+email sub attribute, datatype string;
+body sub attribute, datatype string;
+archived sub attribute, datatype boolean;

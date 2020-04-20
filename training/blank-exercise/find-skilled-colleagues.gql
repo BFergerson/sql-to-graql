@@ -1,0 +1,27 @@
+############################################# SCHEMA #############################################
+
+
+############################################# DATA #############################################
+
+
+############################################# QUERY #############################################
+#Write a query to find everyone who is good at Kotlin and Java
+
+
+#Write a query to find everyone who has no experience with C#
+
+
+#Extend the graph to add the ability to assign skill level (weight)
+
+
+#Update Eric to have a skill level of 3 in current skills
+
+
+#Update Larry to have a skill level of 2 in current skills
+
+
+#Update Sergey to have a skill level of 4 in current skills
+
+
+#Write a query to find everyone with a skill level greater than 2 in C#
+

@@ -1,0 +1,2 @@
+insert $a isa artist,
+    has artist_name "Michael Jackson";

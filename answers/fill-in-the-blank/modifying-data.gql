@@ -1,0 +1,5 @@
+match $ar isa artist, has artist_name "Michael Jackson";
+insert $ar has artist_name "Michael Joseph Jackson";
+
+match $ar isa artist, has artist_name "Michael Jackson" via $r;
+delete $r;

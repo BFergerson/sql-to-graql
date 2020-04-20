@@ -1,0 +1,28 @@
+############################################# SCHEMA #############################################
+define
+product sub entity,
+    key product_name;
+city sub entity,
+    has city_name,
+    plays location,
+    plays located;
+state sub entity,
+    has state_name,
+    plays location,
+    plays located;
+
+locating sub relation,
+    relates location,
+    relates located;
+
+category_name sub attribute, datatype string;
+product_name sub attribute, datatype string;
+city_name sub attribute, datatype string;
+state_name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert
+$bacon isa product, has product_name "Bacon";
+$toronto isa city, has city_name "Toronto";
+
+(location: $bacon, located: $toronto) isa locating; #Toronto is located in Bacon?

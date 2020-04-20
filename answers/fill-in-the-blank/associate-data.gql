@@ -1,0 +1,7 @@
+match
+$ar isa artist, has artist_name "Michael Jackson";
+insert
+$al isa album,
+    has album_name "Bad",
+    has release_date 1987-08-31;
+(released_album: $al, releasing_artist: $ar) isa album-release;

@@ -1,0 +1,32 @@
+define
+book sub entity,
+    has author,
+    has title,
+    has publish_date,
+    plays lent-book;
+user sub entity,
+    has first_name,
+    has middle_name,
+    has last_name,
+    has email,
+    has gender,
+    has dob,
+    plays book-borrower;
+
+book-lending sub relation,
+    has lend_date,
+    has due_date,
+    relates lent-book,
+    relates book-borrower;
+
+first_name sub attribute, datatype string;
+middle_name sub attribute, datatype string;
+last_name sub attribute, datatype string;
+email sub attribute, datatype string;
+gender sub attribute, datatype string;
+dob sub attribute, datatype date;
+author sub attribute, datatype string;
+title sub attribute, datatype string;
+publish_date sub attribute, datatype date;
+lend_date sub attribute, datatype date;
+due_date sub attribute, datatype date;

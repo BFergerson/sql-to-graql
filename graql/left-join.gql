@@ -1,0 +1,38 @@
+############################################# SCHEMA #############################################
+define
+product sub entity,
+    key product_name,
+    plays product-assignment;
+category sub entity,
+    key category_name,
+    plays assigned-category;
+
+category-assignment sub relation,
+    relates assigned-category,
+    relates product-assignment;
+
+category_name sub attribute, datatype string;
+product_name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert
+$pl isa product, has product_name "Lobster";
+$pa isa product, has product_name "Almond";
+$pc isa product, has product_name "Cashew";
+
+$cb isa category, has category_name "Bean";
+$cs isa category, has category_name "Seafood";
+$cn isa category, has category_name "Nut";
+
+(assigned-category: $cs, product-assignment: $pl) isa category-assignment;
+(assigned-category: $cn, product-assignment: $pa) isa category-assignment;
+(assigned-category: $cn, product-assignment: $pc) isa category-assignment;
+
+############################################# QUERY #############################################
+match
+$c isa category,
+    has category_name $cn;
+not {
+    ($c, $x) isa category-assignment;
+};
+get $cn;

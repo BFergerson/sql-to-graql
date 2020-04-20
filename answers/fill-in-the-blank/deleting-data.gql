@@ -1,0 +1,5 @@
+match
+$ar isa artist, has artist_name "Michael Jackson";
+$al isa album, has album_name "Bad";
+($ar, $al) isa album-release;
+delete $al;

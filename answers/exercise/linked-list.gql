@@ -1,0 +1,59 @@
+############################################# SCHEMA #############################################
+define
+node sub entity,
+    has data,
+    plays head,
+    plays previous,
+    plays next;
+linked-list sub entity,
+    plays list;
+
+node-connection sub relation,
+    relates list,
+    relates head,
+    relates previous,
+    relates next;
+
+data sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert
+$bob isa node, has data "Bob";
+$sam isa node, has data "Sam";
+$jessica isa node, has data "Jessica";
+$eric isa node, has data "Eric";
+$alexis isa node, has data "Alexis";
+
+$l isa linked-list;
+(list: $l, head: $bob, next: $sam) isa node-connection;
+(list: $l, previous: $sam, next: $jessica) isa node-connection;
+(list: $l, previous: $jessica, next: $eric) isa node-connection;
+(list: $l, previous: $eric, next: $alexis) isa node-connection;
+
+############################################# QUERY #############################################
+#Who is in queue before Alexis?
+match
+$l isa linked-list;
+$alexis isa node, has data "Alexis";
+(list: $l, previous: $x, next: $alexis) isa node-connection;
+$x has data $x_data;
+get $x_data;
+
+#Who is in queue after the person after Bob?
+match
+$l isa linked-list;
+$bob isa node, has data "Bob";
+(list: $l, previous: $bob, next: $afterBob) isa node-connection;
+(previous: $afterBob, next: $x) isa node-connection;
+$x has data $x_data;
+get $x_data;
+
+#Who is the last person in the queue?
+match
+$l isa linked-list;
+$lastNode isa node, has data $lastNode_data;
+(list: $l, next: $lastNode) isa node-connection;
+not {
+    (previous: $lastNode, next: $x) isa node-connection;
+};
+get $lastNode_data;

@@ -1,0 +1,33 @@
+############################################# SCHEMA #############################################
+define
+being sub entity;
+god sub being,
+    has name;
+man sub being,
+    has name;
+mortal sub entity;
+
+name sub attribute, datatype string;
+
+men-are-mortal sub rule,
+when {
+    $man isa man;
+},
+then {
+    $man isa mortal;
+};
+
+############################################# DATA #############################################
+insert
+$m isa man, has name "Socrates";
+$g isa god, has name "Zeus";
+
+############################################# QUERY #############################################
+match
+$mortal isa mortal; get; #get mortals
+
+match
+$god isa god; get; #get gods
+
+match
+$being isa being; get; #get gods and mortals

@@ -1,0 +1,10 @@
+############################################# SCHEMA #############################################
+define
+category sub entity,
+    key category_name;
+
+category_name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert $c isa category,
+    has category_name "Candy";

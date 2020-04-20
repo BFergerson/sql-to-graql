@@ -1,0 +1,63 @@
+############################################# OPTION A #############################################
+#define
+#address sub entity,
+#    has address_street,
+#    has address_type,
+#    plays is_address;
+#person sub entity,
+#    has name,
+#    plays has_address;
+#addressable sub relation,
+#    relates has_address,
+#    relates is_address;
+#address_street sub attribute, datatype string;
+#address_type sub attribute, datatype string;
+#name sub attribute, datatype string;
+#
+#insert
+#$home isa address, has address_street "123 Home Street", has address_type "Home";
+#$work isa address, has address_street "321 Work Street", has address_type "Work";
+#$p isa person, has name "Ryan";
+#
+#(has_address: $p, is_address: $work) isa addressable;
+#(has_address: $p, is_address: $home) isa addressable;
+
+############################################# OPTION B #############################################
+define
+address sub entity,
+    has address_street,
+    plays is_address;
+work_address sub address;
+home_address sub address;
+person sub entity,
+    has name,
+    plays has_address;
+addressable sub relation,
+    relates has_address,
+    relates is_address;
+address_street sub attribute, datatype string;
+name sub attribute, datatype string;
+
+insert
+$home isa home_address, has address_street "123 Home Street";
+$work isa work_address, has address_street "321 Work Street";
+$p isa person, has name "Ryan";
+
+(has_address: $p, is_address: $work) isa addressable;
+(has_address: $p, is_address: $home) isa addressable;
+
+############################################# ANSWER = OPTION B #############################################
+#Reason: Option B can more easily be extended for additional validation
+#Example: The code below shows how "vaction_home" can be successfully added to "home_address" but fail on "work_address"
+define
+home_address has vaction_home;
+vaction_home sub attribute, datatype boolean;
+
+insert
+$x isa home_address,
+    has address_street "456 Home Street",
+    has vaction_home true; #Valid for a home_address to be a vaction home
+
+$y isa work_address,
+    has address_street "654 Work Street",
+    has vaction_home true; #Invalid for a work_address to be a vaction home

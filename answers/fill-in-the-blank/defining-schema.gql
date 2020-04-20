@@ -1,0 +1,16 @@
+define
+album sub entity,
+    key album_name,
+    has release_date,
+    plays released_album;
+artist sub entity,
+    key artist_name,
+    plays releasing_artist;
+
+album-release sub relation,
+    relates released_album,
+    relates releasing_artist;
+
+album_name sub attribute, datatype string;
+release_date sub attribute, datatype date;
+artist_name sub attribute, datatype string;

@@ -1,0 +1,34 @@
+############################################# SCHEMA #############################################
+define
+country sub entity,
+    key name,
+    has population,
+    plays spoken_in;
+language sub entity,
+    key name,
+    has word_count,
+    plays speaks;
+spoken-language sub relation,
+    has primary,
+    relates speaks,
+    relates spoken_in;
+name sub attribute, datatype string;
+primary sub attribute, datatype boolean;
+population sub attribute, datatype long;
+word_count sub attribute, datatype long;
+
+############################################# DATA #############################################
+insert
+$c isa country, has name "Argentina", has population 45000000;
+$es isa language, has name "Spanish", has word_count 150000;
+$en isa language, has name "English", has word_count 600000;
+
+(spoken_in: $c, speaks: $es) isa spoken-language, has primary true;
+(spoken_in: $c, speaks: $en) isa spoken-language, has primary false;
+
+############################################# QUERY #############################################
+match
+$c isa country, has name "Argentina";
+$lang isa language;
+($c, $lang) isa spoken-language, has primary true;
+get $lang;

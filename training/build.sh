@@ -1,0 +1,12 @@
+cat header.txt ../sql/defining-schema.sql middle.txt ../graql/defining-schema.gql footer.txt > ../side-by-side/defining-schema.md
+cat header.txt ../sql/deleting-data.sql middle.txt ../graql/deleting-data.gql footer.txt > ../side-by-side/deleting-data.md
+cat header.txt ../sql/modifying-data.sql middle.txt ../graql/modifying-data.gql footer.txt > ../side-by-side/modifying-data.md
+cat header.txt ../sql/inner-join.sql middle.txt ../graql/inner-join.gql footer.txt > ../side-by-side/inner-join.md
+cat header.txt ../sql/insert-data.sql middle.txt ../graql/insert-data.gql footer.txt > ../side-by-side/insert-data.md
+cat header.txt ../sql/associate-data.sql middle.txt ../graql/associate-data.gql footer.txt > ../side-by-side/associate-data.md
+cat header.txt ../sql/intersect.sql middle.txt ../graql/intersect.gql footer.txt > ../side-by-side/intersect.md
+cat header.txt ../sql/left-join.sql middle.txt ../graql/left-join.gql footer.txt > ../side-by-side/left-join.md
+cat header.txt ../sql/project.sql middle.txt ../graql/project.gql footer.txt > ../side-by-side/project.md
+cat header.txt ../sql/restrict.sql middle.txt ../graql/restrict.gql footer.txt > ../side-by-side/restrict.md
+cat header.txt ../sql/full-outer-join.sql middle.txt ../graql/full-outer-join.gql footer.txt > ../side-by-side/full-outer-join.md
+cat header.txt ../sql/union.sql middle.txt ../graql/union.gql footer.txt > ../side-by-side/union.md

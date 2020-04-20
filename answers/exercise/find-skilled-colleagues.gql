@@ -1,0 +1,109 @@
+############################################# SCHEMA #############################################
+define
+company sub entity,
+    has name,
+    plays has-employee;
+skill sub entity,
+    has name,
+    plays is-skill;
+person sub entity,
+    has name,
+    plays is-employee,
+    plays has-skill;
+
+company-employee sub relation,
+    relates has-employee,
+    relates is-employee;
+skilled-person sub relation,
+    relates has-skill,
+    relates is-skill;
+
+name sub attribute, datatype string;
+
+############################################# DATA #############################################
+insert
+$c isa company, has name "Google";
+$p isa person, has name "Larry";
+$p2 isa person, has name "Sergey";
+$p3 isa person, has name "Eric";
+
+(has-employee: $c, is-employee: $p) isa company-employee;
+(has-employee: $c, is-employee: $p2) isa company-employee;
+(has-employee: $c, is-employee: $p3) isa company-employee;
+
+$s isa skill, has name "Java";
+$s2 isa skill, has name "C#";
+$s3 isa skill, has name "Kotlin";
+$s4 isa skill, has name "Python";
+
+(has-skill: $p, is-skill: $s) isa skilled-person;
+(has-skill: $p, is-skill: $s2) isa skilled-person;
+(has-skill: $p, is-skill: $s3) isa skilled-person;
+(has-skill: $p2, is-skill: $s) isa skilled-person;
+(has-skill: $p2, is-skill: $s3) isa skilled-person;
+(has-skill: $p3, is-skill: $s2) isa skilled-person;
+(has-skill: $p3, is-skill: $s4) isa skilled-person;
+
+############################################# QUERY #############################################
+#Write a query to find everyone who is good at Kotlin and Java
+match
+$company isa company, has name "Google";
+($employee, $company) isa company-employee;
+($kotlinSkill, $employee) isa skilled-person;
+$kotlinSkill has name "Kotlin";
+($javaSkill, $employee) isa skilled-person;
+$javaSkill has name "Java";
+get $employee;
+
+#Write a query to find everyone who has no experience with C#
+match
+$company isa company, has name "Google";
+($employee, $company) isa company-employee;
+not {
+    ($csharpSkill, $employee) isa skilled-person;
+    $csharpSkill has name "C#";
+};
+get $employee;
+
+#Extend the graph to add the ability to assign skill level (weight)
+define
+skilled-person has skill_level;
+skill_level sub attribute, datatype long;
+
+#Update Eric to have a skill level of 3 in current skills
+match
+$company isa company, has name "Google";
+$eric isa person, has name "Eric";
+($eric, $company) isa company-employee;
+$r ($skill, $eric) isa skilled-person;
+
+insert
+$r has skill_level 3;
+
+#Update Larry to have a skill level of 2 in current skills
+match
+$company isa company, has name "Google";
+$larry isa person, has name "Larry";
+($larry, $company) isa company-employee;
+$r ($skill, $larry) isa skilled-person;
+
+insert
+$r has skill_level 2;
+
+#Update Sergey to have a skill level of 4 in current skills
+match
+$company isa company, has name "Google";
+$sergey isa person, has name "Sergey";
+($sergey, $company) isa company-employee;
+$r ($skill, $sergey) isa skilled-person;
+
+insert
+$r has skill_level 4;
+
+#Write a query to find everyone with a skill level greater than 2 in C#
+match
+$company isa company, has name "Google";
+($employee, $company) isa company-employee;
+($skill, $employee) isa skilled-person, has skill_level > 2;
+$skill has name "C#";
+get $employee;

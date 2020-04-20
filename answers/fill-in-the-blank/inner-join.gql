@@ -1,0 +1,7 @@
+match
+$ar isa artist,
+    has artist_name $ar_name;
+$al isa album,
+    has album_name $al_name;
+($ar, $al) isa album-release;
+get $ar_name, $al_name;

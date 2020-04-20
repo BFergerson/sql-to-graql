@@ -1,0 +1,55 @@
+############################################# SCHEMA #############################################
+define
+city sub entity,
+    has city_name,
+    plays location,
+    plays located;
+state sub entity,
+    has state_name,
+    plays location,
+    plays located;
+country sub entity,
+    has country_name,
+    plays location,
+    plays located;
+
+locating sub relation,
+    relates location,
+    relates located;
+
+city_name sub attribute, datatype string;
+state_name sub attribute, datatype string;
+country_name sub attribute, datatype string;
+
+transitive-location sub rule,
+when {
+    $l (location: $a, located: $b) isa locating;
+    $l2 (location: $b, located: $c) isa locating;
+}, then {
+    (location: $a, located: $c) isa locating;
+};
+
+############################################# DATA #############################################
+insert
+$cid isa city, has city_name "Dallas";
+$cih isa city, has city_name "Houston";
+$cit isa city, has city_name "Tallahassee";
+
+$st isa state, has state_name "Texas";
+$sf isa state, has state_name "Florida";
+
+$co isa country, has country_name "United States of America";
+
+(location: $cid, located: $st) isa locating;
+(location: $cih, located: $st) isa locating;
+(location: $cit, located: $sf) isa locating;
+
+(location: $st, located: $co) isa locating;
+(location: $sf, located: $co) isa locating;
+
+############################################# QUERY #############################################
+match
+$c isa city;
+$usa isa country, has country_name "United States of America";
+$l (location: $c, $usa) isa locating;
+get; #get all cities in USA

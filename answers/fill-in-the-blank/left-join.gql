@@ -1,0 +1,7 @@
+match
+$ar isa artist,
+    has artist_name $ar_name;
+not {
+    ($ar, $x) isa album-release;
+};
+get $ar_name;

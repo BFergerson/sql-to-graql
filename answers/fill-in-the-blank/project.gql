@@ -1,0 +1,5 @@
+match
+$a isa album,
+    has album_name $n,
+    has release_date $r;
+get $n, $r;
