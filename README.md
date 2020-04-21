@@ -1,5 +1,8 @@
 ## SQL -> Graql
-[![](training/intro_slide.jpg)](SQL-to-Graql.pdf)
+<p align="center">
+    <a href="SQL-to-Graql.pdf"><img src="training/intro_slide.jpg" title="SQL -> Graql"></a>
+    <a href="SQL-to-Graql.pdf">SQL-to-Graql.pdf</a>
+</p>
 
 ## Side-by-Side Comparison
 - [Defining Schema](side-by-side/defining-schema.md)
