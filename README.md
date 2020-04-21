@@ -1,7 +1,7 @@
 ## SQL -> Graql
 <p align="center">
     <a href="SQL-to-Graql.pdf"><img src="training/intro_slide.jpg" title="SQL -> Graql"></a>
-    <a href="SQL-to-Graql.pdf">SQL-to-Graql.pdf</a>
+    <a href="SQL-to-Graql.pdf">SQL-to-Graql</a>
 </p>
 
 ## Side-by-Side Comparison
