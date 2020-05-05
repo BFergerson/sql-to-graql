@@ -35,7 +35,7 @@ $l isa linked-list;
 match
 $l isa linked-list;
 $alexis isa node, has data "Alexis";
-(list: $l, previous: $x, next: $alexis) isa node-connection;
+(list: $l, $x, next: $alexis) isa node-connection;
 $x has data $x_data;
 get $x_data;
 
@@ -43,7 +43,7 @@ get $x_data;
 match
 $l isa linked-list;
 $bob isa node, has data "Bob";
-(list: $l, previous: $bob, next: $afterBob) isa node-connection;
+(list: $l, $bob, next: $afterBob) isa node-connection;
 (previous: $afterBob, next: $x) isa node-connection;
 $x has data $x_data;
 get $x_data;
